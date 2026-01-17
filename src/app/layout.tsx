@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Geist_Mono, Inter, } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/*  */}
       <body
         className={`${inter.variable} ${figtree.variable} ${geistMono.variable} antialiased`}
       >

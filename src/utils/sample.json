@@ -1,0 +1,30 @@
+{
+  "request": {
+    "task": "Create a responsive Login and Register page",
+    "technologies": ["React", "Tailwind CSS"],
+    "parameters": {
+      "login_fields": ["Username/Email", "Password"],
+      "register_fields": ["Full Name", "Username", "Email", "Password"]
+    },
+    "output_format": {
+      "style": "clean, modern UI",
+      "components": [
+        "Single React component using hooks",
+        "Tailwind utility classes",
+        "Conditional rendering for form toggling",
+        "Summary of features",
+        "Setup instructions"
+      ]
+    },
+    "tone": "helpful, peer-like, and insightful"
+  },
+  "context": {
+    "role": "Expert Frontend Developer",
+    "constraints": [
+      "Use clear, scannable Markdown",
+      "Explain the logic (State Management, Conditional Rendering)",
+      "Include security best practices",
+      "Do not use LaTeX for non-technical prose"
+    ]
+  }
+}
