@@ -1,13 +1,88 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-/**
- * Header Component (Auralink)
- * Generated from structured UI configuration.
- */
-const Header = () => {
+interface NavbarConfig {
+    type: string;
+    position: string;
+    zIndex: number;
+    behavior: {
+        scrollBackground: {
+            whenScrolled: string;
+            default: string;
+        };
+    };
+    container: {
+        maxWidth: string;
+        padding: string[];
+        height: string;
+    };
+    brand: {
+        label: string;
+        action: string;
+        styles: {
+            button: {
+                className: string;
+                fontFamily: string;
+            };
+            text: {
+                fontFamily: string;
+                fontWeight: number;
+            };
+        };
+    };
+    navigation: {
+        desktop: {
+            visibleFrom: string;
+            layout: string;
+            gap: string;
+            item: {
+                className: string;
+                fontFamily: string;
+                fontWeight: number;
+                underline: {
+                    enabled: boolean;
+                    className: string;
+                };
+            };
+        };
+        mobile: {
+            visibleUntil: string;
+            toggleIcon: {
+                open: string;
+                closed: string;
+            };
+        };
+    };
+    links: Array<{ label: string; href: string }>;
+    cta: {
+        label: string;
+        href: string;
+        variant: string;
+        styles: {
+            background: string;
+            hover: string;
+            textColor: string;
+            rounded: string;
+            fontFamily: string;
+            fontWeight: number;
+        };
+    };
+    mobileMenu: {
+        animation: {
+            type: string;
+            duration: number;
+            easing: string;
+        };
+        containerClass: string;
+        itemClass: string;
+    };
+
+}
+
+const Header = ({ config }: { config: NavbarConfig }) => {
     // Hooks defined in JSON
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -40,66 +115,87 @@ const Header = () => {
         }
     };
 
+    // ${config.position}
+
+    // Mapping the classnames for styling
+    const navBarClass = `w-full top-0 left-0 right-0 transition-all duration-300 ${isScrolled
+        ? "bg-background/95 backdrop-blur-md shadow-sm"
+        : "bg-transparent"
+        }`;
+
+    const containerClass = `max-w-7xl mx-auto px-6 lg:px-8`;
+
     return (
-        <nav id="nav-bar"
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? "bg-background/95 backdrop-blur-md shadow-sm"
-                : "bg-transparent"
-                }`}
-        >
-            <div id="nav-container-001" className="max-w-7xl mx-auto px-6 lg:px-8">
-                <div id="nav-container-002" className="flex items-center justify-between h-20">
+        <nav id="nav-bar" className={navBarClass} style={{ zIndex: config.zIndex }}>
+            <div id="nav-container-001" className={containerClass}>
+                <div id="nav-container-002" className={`flex items-center justify-between ${config.container.height}`}>
 
                     {/* Brand Section */}
                     <div id="nav-brand" className="shrink-0">
                         <button
                             id="nav-brand-button"
-                            onClick={() => handleLinkClick("#home")}
-                            className="text-2xl font-bold text-foreground hover:text-primary transition-colors duration-200"
-                            style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                            onClick={() => handleLinkClick(config.brand.action)}
+                            className={config.brand.styles.button.className}
+                            style={{ fontFamily: config.brand.styles.button.fontFamily }}
                         >
-                            <span id="nav-brand-name" style={{ fontFamily: "Figtree", fontWeight: 800 }}>
-                                Auralink
+                            <span
+                                id="nav-brand-name"
+                                style={{
+                                    fontFamily: config.brand.styles.text.fontFamily,
+                                    fontWeight: config.brand.styles.text.fontWeight
+                                }}
+                            >
+                                {config.brand.label}
                             </span>
                         </button>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div id="nav-links" className="hidden md:block">
-                        <div id="nav-links-container" className="ml-10 flex items-baseline space-x-8">
-                            {navLinks.map((link) => (
+                    <div id="nav-links" className={`hidden ${config.navigation.desktop.visibleFrom}:block`}>
+                        <div id="nav-links-container" className={`ml-10 flex items-baseline ${config.navigation.desktop.gap}`}>
+                            {config.links.map((link) => (
                                 <button
                                     id={`nav-link-${link.label}`}
                                     key={link.label}
                                     onClick={() => handleLinkClick(link.href)}
-                                    className="text-foreground hover:text-primary px-3 py-2 text-base font-medium transition-colors duration-200 relative group"
-                                    style={{ fontFamily: "Figtree, sans-serif", fontWeight: 400 }}
+                                    className={config.navigation.desktop.item.className}
+                                    style={{
+                                        fontFamily: config.navigation.desktop.item.fontFamily,
+                                        fontWeight: config.navigation.desktop.item.fontWeight
+                                    }}
                                 >
                                     <span id={`nav-link-label-${link.label}`}>{link.label}</span>
                                     {/* Underline Animation */}
-                                    <div id={`nav-link-underline-${link.label}`} className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                                    {config.navigation.desktop.item.underline.enabled && (
+                                        <div
+                                            id={`nav-link-underline-${link.label}`}
+                                            className={config.navigation.desktop.item.underline.className}
+                                        />
+                                    )}
                                 </button>
                             ))}
                         </div>
                     </div>
 
                     {/* CTA Section */}
-                    <div id="nav-cta" className="hidden md:block">
+                    <div id="nav-cta" className={`hidden ${config.navigation.desktop.visibleFrom}:block`}>
                         <button
                             id="nav-cta-button"
-                            onClick={() => handleLinkClick("#contact")}
-                            className="bg-[#156d95] text-white px-6 py-3 rounded-full text-base font-medium hover:bg-[#156d95]/90 transition-all duration-200 shadow-sm"
+                            onClick={() => handleLinkClick(config.cta.href)}
+                            className={`px-6 py-3 text-base font-medium transition-all duration-200 shadow-sm ${config.cta.styles.rounded}`}
                             style={{
-                                fontFamily: "Plus Jakarta Sans, sans-serif",
-                                fontWeight: 500
+                                backgroundColor: config.cta.styles.background,
+                                color: config.cta.styles.textColor,
+                                fontFamily: config.cta.styles.fontFamily,
+                                fontWeight: config.cta.styles.fontWeight
                             }}
                         >
-                            Start Free Trial
+                            {config.cta.label}
                         </button>
                     </div>
 
                     {/* Mobile Toggle */}
-                    <div id="nav-toggle" className="md:hidden">
+                    <div id="nav-toggle" className={`${config.navigation.mobile.visibleUntil}:hidden`}>
                         <button
                             id="nav-toggle-button"
                             onClick={toggleMobileMenu}
@@ -120,17 +216,23 @@ const Header = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="md:hidden bg-background/95 backdrop-blur-md border-t border-border overflow-hidden"
+                        transition={{
+                            duration: config.mobileMenu.animation.duration,
+                            ease: config.mobileMenu.animation.easing as any
+                        }}
+                        className={`${config.navigation.mobile.visibleUntil}:hidden ${config.mobileMenu.containerClass} overflow-hidden`}
                     >
                         <div id="nav-mobile-menu-container" className="px-6 py-6 space-y-4">
-                            {navLinks.map((link) => (
+                            {config.links.map((link) => (
                                 <button
                                     id="nav-mobile-menu-link"
                                     key={link.label}
                                     onClick={() => handleLinkClick(link.href)}
-                                    className="block w-full text-left text-foreground hover:text-primary py-3 text-lg font-medium transition-colors duration-200"
-                                    style={{ fontFamily: "Figtree, sans-serif", fontWeight: 400 }}
+                                    className={config.mobileMenu.itemClass}
+                                    style={{
+                                        fontFamily: config.navigation.desktop.item.fontFamily,
+                                        fontWeight: config.navigation.desktop.item.fontWeight
+                                    }}
                                 >
                                     {link.label}
                                 </button>
@@ -138,11 +240,15 @@ const Header = () => {
                             <div id="nav-mobile-menu-cta" className="pt-4 border-t border-border">
                                 <button
                                     id="nav-mobile-menu-cta-button"
-                                    onClick={() => handleLinkClick("#contact")}
-                                    className="w-full bg-[#156d95] text-white py-3 rounded-full text-base font-semibold"
-                                    style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
+                                    onClick={() => handleLinkClick(config.cta.href)}
+                                    className={`w-full py-3 text-base font-semibold ${config.cta.styles.rounded}`}
+                                    style={{
+                                        backgroundColor: config.cta.styles.background,
+                                        color: config.cta.styles.textColor,
+                                        fontFamily: config.cta.styles.fontFamily
+                                    }}
                                 >
-                                    Start Free Trial
+                                    {config.cta.label}
                                 </button>
                             </div>
                         </div>

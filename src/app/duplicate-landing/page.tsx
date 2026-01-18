@@ -1,16 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-// import { instrument, attach } from 'bippy';
 import React from 'react'
 import Header from './_components/header';
 import SelectionBox from './_components/selection-box';
 import ComponentManager from '@/components/ComponentManager';
+import useComponentStore from '@/hooks/zustand/use-component';
+import useSelectElement from '@/hooks/zustand/use-select-element';
 
 function DuplicateLandingPage() {
   const [selectionBox, setSelectionBox] = React.useState<any>(null);
+  const [jsonBody, setJsonBody] = React.useState<any>(null);
+  const { getComponent } = useComponentStore();
+
+  // When select a element
+  const { setSelectedElement } = useSelectElement();
 
   React.useEffect(() => {
+
+    const jsonComponent = getComponent();
+    if (jsonComponent) {
+      const { body: { renderedOutput } } = jsonComponent as any;
+      setJsonBody(renderedOutput);
+    }
 
     let startPoint: any = null;
     let isDragging: boolean = false;
@@ -69,7 +82,10 @@ function DuplicateLandingPage() {
         //   });
         // })
 
-        console.log('Elements:', elements[0]);
+        const selectedElement = elements[0];
+        console.log(selectedElement);
+
+        setSelectedElement(selectedElement);
 
         // console.log('Complete drag:', {
         //   start: elementPosition(startPoint),
@@ -99,7 +115,11 @@ function DuplicateLandingPage() {
   return (
     <ComponentManager>
       {selectionBox && <SelectionBox rectangle={selectionBox} />}
-      <Header />
+      {jsonBody && (
+        <div id='canvas' className='w-full'>
+          <Header config={jsonBody} />
+        </div>
+      )}
     </ComponentManager>
   )
 }
