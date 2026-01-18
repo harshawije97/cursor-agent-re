@@ -9,6 +9,10 @@ function ComponentEditor() {
     const [element, setElement] = React.useState<Element | null>(null);
     const { selectedElement } = useSelectElement();
 
+    const sortSelectedElement = React.useCallback(() => {
+        
+    }, [])
+
     React.useEffect(() => {
         if (selectedElement) {
             const { element } = selectedElement;

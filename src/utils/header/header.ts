@@ -56,6 +56,7 @@ export const headerComponent = {
       }
     },
     "renderedOutput": {
+      "id": "nav-bar",
       "type": "navbar",
       "position": "fixed",
       "zIndex": 50,
@@ -66,19 +67,23 @@ export const headerComponent = {
         }
       },
       "container": {
+        "id": "nav-container-001",
         "maxWidth": "7xl",
         "padding": ["px-6", "lg:px-8"],
         "height": "h-20"
       },
       "brand": {
+        "id": "nav-brand",
         "label": "Auralink",
         "action": "#home",
         "styles": {
           "button": {
+            "id": "nav-brand-button",
             "className": "text-2xl font-bold text-foreground hover:text-primary transition-colors duration-200",
             "fontFamily": "Plus Jakarta Sans, sans-serif"
           },
           "text": {
+            "id": "nav-brand-name",
             "fontFamily": "Figtree",
             "fontWeight": 800
           }
@@ -86,6 +91,7 @@ export const headerComponent = {
       },
       "navigation": {
         "desktop": {
+          "id": ["nav-links", "nav-links-container"],
           "visibleFrom": "md",
           "layout": "horizontal",
           "gap": "space-x-8",
@@ -100,6 +106,7 @@ export const headerComponent = {
           }
         },
         "mobile": {
+          "id": "nav-toggle",
           "visibleUntil": "md",
           "toggleIcon": {
             "open": "X",
@@ -108,15 +115,17 @@ export const headerComponent = {
         }
       },
       "links": [
-        { "label": "Home", "href": "#home" },
-        { "label": "Features", "href": "#features" },
-        { "label": "Pricing", "href": "#pricing" }
+        { "id": "nav-link-home", "label": "Home", "href": "#home" },
+        { "id": "nav-link-features", "label": "Features", "href": "#features" },
+        { "id": "nav-link-pricing", "label": "Pricing", "href": "#pricing" }
       ],
       "cta": {
+        "id": "nav-cta",
         "label": "Start Free Trial",
         "href": "#contact",
         "variant": "primary",
         "styles": {
+          "id": ["nav-cta-button", "nav-mobile-menu-cta-button"],
           "background": "#156d95",
           "hover": "#156d95/90",
           "textColor": "#ffffff",
@@ -126,6 +135,7 @@ export const headerComponent = {
         }
       },
       "mobileMenu": {
+        "id": ["nav-mobile-menu", "nav-mobile-menu-link"],
         "animation": {
           "type": "collapse",
           "duration": 0.3,
