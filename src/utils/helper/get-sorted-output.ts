@@ -21,7 +21,7 @@ const searchParentProperty = (obj: RenderedObject, targetValue: any, currentPath
         if (typeof value === 'object' && value !== null) {
             const subPaths = searchParentProperty(value, targetValue, newPath);
             paths.push(...subPaths);
-            
+
         } else if (Array.isArray(value)) {
 
             value.forEach((item, index) => {
@@ -44,7 +44,25 @@ const getSortedOutputBody = (element: Element, body: any) => {
     if (!element.id) return null;
 
     const paths = searchParentProperty(body, element.id);
-    console.log({ "paths": paths }, element.id);
+    return paths;
+}
+
+export const updateSortedOutputBody = (body: any) => {
+    try {
+        // delete the final element from the array of objects body
+        const updatedBody = body.pop().slice(0, -1);
+        for (const item of updatedBody) {
+            if (Array.isArray(item.value)) {
+                delete item.value;
+            } else {
+                return item.value
+            }
+        }
+        return updatedBody;
+    } catch (error) {
+        console.log(error);
+        return null
+    }
 }
 
 export default getSortedOutputBody;

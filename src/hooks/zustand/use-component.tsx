@@ -2,6 +2,7 @@
 import { create } from 'zustand';
 
 interface ComponentSpec {
+  body: { renderedOutput: any; };
   component: {
     imports?: any;
     data?: any;
