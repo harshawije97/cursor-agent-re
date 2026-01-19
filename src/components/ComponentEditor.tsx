@@ -1,22 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React from 'react'
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from './ui/empty';
 import { Component1Icon } from '@radix-ui/react-icons';
 import useSelectElement from '@/hooks/zustand/use-select-element';
+import getSortedOutputBody from '@/utils/helper/get-sorted-output';
+import useComponentStore from '@/hooks/zustand/use-component';
 
 function ComponentEditor() {
-    const [element, setElement] = React.useState<Element | null>(null);
+    const { component } = useComponentStore();
     const { selectedElement } = useSelectElement();
 
-    const sortSelectedElement = React.useCallback(() => {
-        
-    }, [])
-
     React.useEffect(() => {
+
         if (selectedElement) {
             const { element } = selectedElement;
-            setElement(element);
+            if (element && component) {
+                const { renderedOutput } = component.body;
+                
+                // pass rendered output and selected element into the function
+                getSortedOutputBody(element, renderedOutput);
+            }
         }
     }, [selectedElement]);
 

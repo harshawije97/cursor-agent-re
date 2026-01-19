@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-interface NavbarConfig {
+export interface NavbarConfig {
     type: string;
     position: string;
     zIndex: number;

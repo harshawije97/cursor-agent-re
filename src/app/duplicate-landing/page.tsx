@@ -83,8 +83,6 @@ function DuplicateLandingPage() {
         // })
 
         const selectedElement = elements[0];
-        console.log(selectedElement);
-
         setSelectedElement(selectedElement);
 
         // console.log('Complete drag:', {

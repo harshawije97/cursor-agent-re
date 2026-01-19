@@ -91,7 +91,8 @@ export const headerComponent = {
       },
       "navigation": {
         "desktop": {
-          "id": ["nav-links", "nav-links-container"],
+          "id": "nav-links",
+          "key": "nav-links-container",
           "visibleFrom": "md",
           "layout": "horizontal",
           "gap": "space-x-8",
@@ -115,9 +116,9 @@ export const headerComponent = {
         }
       },
       "links": [
-        { "id": "nav-link-home", "label": "Home", "href": "#home" },
-        { "id": "nav-link-features", "label": "Features", "href": "#features" },
-        { "id": "nav-link-pricing", "label": "Pricing", "href": "#pricing" }
+        { "id": "nav-link-Home", "key": "nav-link-label-Home", "label": "Home", "href": "#home" },
+        { "id": "nav-link-Features", "key": "nav-link-label-Features", "label": "Features", "href": "#features" },
+        { "id": "nav-link-Pricing", "key": "nav-link-label-Pricing", "label": "Pricing", "href": "#pricing" }
       ],
       "cta": {
         "id": "nav-cta",
@@ -125,7 +126,8 @@ export const headerComponent = {
         "href": "#contact",
         "variant": "primary",
         "styles": {
-          "id": ["nav-cta-button", "nav-mobile-menu-cta-button"],
+          "id": "nav-cta-button",
+          "key": "nav-mobile-menu-cta-button",
           "background": "#156d95",
           "hover": "#156d95/90",
           "textColor": "#ffffff",
@@ -135,7 +137,8 @@ export const headerComponent = {
         }
       },
       "mobileMenu": {
-        "id": ["nav-mobile-menu", "nav-mobile-menu-link"],
+        "id": "nav-mobile-menu",
+        "key": "nav-mobile-menu-link",
         "animation": {
           "type": "collapse",
           "duration": 0.3,
