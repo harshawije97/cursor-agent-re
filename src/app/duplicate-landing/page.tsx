@@ -63,41 +63,32 @@ function DuplicateLandingPage() {
     }
 
     const mouseRelease = (event: any) => {
-      if (isDragging) {
-        const endPoint = {
-          x: event.clientX,
-          y: event.clientY
-        };
+      const canvas = document.getElementById('canvas') as HTMLDivElement;
 
-        const elements = document.elementsFromPoint(endPoint.x, endPoint.y);
+      if (canvas.contains(event.target)) {
 
-        // elements.forEach((element: any) => {
-        //   const dnp = element.getBoundingClientRect();
-        //   console.log('Element:', element);
-        //   console.log('Dimensions:', {
-        //     width: dnp.width,
-        //     height: dnp.height,
-        //     x: dnp.x,
-        //     y: dnp.y
-        //   });
-        // })
+        if (isDragging) {
+          const endPoint = {
+            x: event.clientX,
+            y: event.clientY
+          };
 
-        const selectedElement = elements[0];
-        setSelectedElement(selectedElement);
+          const elements = document.elementsFromPoint(endPoint.x, endPoint.y);
 
-        // console.log('Complete drag:', {
-        //   start: elementPosition(startPoint),
-        //   end: elementPosition(endPoint),
-        //   distance: {
-        //     x: endPoint.x - startPoint.x,
-        //     y: endPoint.y - startPoint.y
-        //   }
-        // });
+          const selectedElement = elements[0];
+          setSelectedElement(selectedElement);
 
-        isDragging = false;
-        startPoint = null;
-        setSelectionBox(null);
+          isDragging = false;
+          startPoint = null;
+          setSelectionBox(null);
+        }
       }
+      isDragging = false;
+      startPoint = null;
+      setSelectionBox(null);
+
+      return null;
+
     }
 
     document.addEventListener('mousedown', mouseDown);
